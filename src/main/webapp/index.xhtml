@@ -1,0 +1,67 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui" xmlns:h3="http://java.sun.com/jsf/composite">
+
+<h:head>
+    <title>Articles</title>
+    <h:graphicImage value="img/logo.jpg"/>
+    <br/>
+    <h1>Product detection</h1>
+    <script type="text/javascript">
+        function disableChoosingButton() {
+            PF('upload').disableButton(PF('upload').chooseButton);
+            PF('upload').chooseButton.find('input[type="file"]').attr('disabled', 'disabled');
+            var cancelButton = $('#pdfUploadForm\\:cancel');
+            cancelButton.css("display", "inline");
+            $('.ui-fileupload-choose').after(cancelButton);
+        }
+        function handleUploadComplete() {
+           $('#pdfUploadForm').submit();
+            if(!PF('upload').files.length) {
+                PF('upload').enableButton(PF('upload').chooseButton);
+                PF('upload').chooseButton.addfind('input[type="file"]').removeAttr('disabled');
+            }
+        }
+
+        function cancel() {
+            $('#pdfUploadForm').submit();
+        }
+    </script>
+    <style>
+        .ui-fileupload-cancel {
+            display: none;
+        }
+    </style>
+</h:head>
+    <h:form id = "pdfUploadForm">
+        <h:outputText value="Please upload one or more PDF files to capture products."/><p/>
+
+        <p:commandButton value="Cancel" actionListener="#{fileUploadManagedBean.cancelBtnEvent}" id="cancel"  onclick="cancel()" style="display:none"/>
+        <p:fileUpload
+                id = "fileUpload"
+                label="Upload PDFs"
+                fileUploadListener="#{fileUploadManagedBean.handleFileUpload}"
+                mode="advanced"
+                dragDropSupport="false"
+                multiple="true" auto="true"
+                update="dataTable" sizeLimit="100000"
+                fileLimit="60" allowTypes="/(\.|\/)(pdf)$/"
+                onstart="clear(); disableChoosingButton()"
+                oncomplete="uploadComplete(); handleUploadComplete()" onerror="handleUploadComplete()" widgetVar="upload"/>
+
+        <p:remoteCommand name="clear" action="#{fileUploadManagedBean.clear}"/>
+        <p:remoteCommand name="uploadComplete" action="#{fileUploadManagedBean.uploadComplete}"/>
+        <p:spacer></p:spacer>
+        <p:dataTable id="dataTable" var="article" value="#{fileUploadManagedBean.articles}" tableStyle="width:auto" rendered="#{fileUploadManagedBean.articles.size() > 0}">
+            <p:column headerText="Name" >
+                <h:commandLink id="articleId" action="#{articleView.findArticle(article.id)}" target="_blank">
+                    <h:outputText value="#{article.name}" styleClass="txtlink" />
+                </h:commandLink>
+            </p:column>
+            <p:column headerText="Serial arrangement">
+                <h:outputText value="#{article.content}"/>
+            </p:column>
+        </p:dataTable>
+    </h:form>
+</html>
