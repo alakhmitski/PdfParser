@@ -18,7 +18,7 @@ In a nutshell, user can upload pfd files, which are parsed, saved into db and on
 <li>Intellij Idea (v.15)</li>
 <li>Maven (v.4.0)</li>
 <li>MySQL Workbench (5.2.40)</li>
-<li>Apache Tomcat (v. 8.0.33) (5.2.40)</li>
+<li>Apache Tomcat (v. 8.0.33)</li>
 </ul>
 
 # TODO
