@@ -1,8 +1,10 @@
 package com.parser.pdf.entity;
 
-import java.io.InputStream;
 import java.io.Serializable;
 
+/**
+ * This model contains information about uploaded pdf file.
+ * */
 public class Article implements Serializable {
 
     private Integer id;

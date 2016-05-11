@@ -12,6 +12,9 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 
+/**
+ * Shows uploaded pdf document when user clicks on a link inside files grid
+ * */
 @ManagedBean(name = "articleView")
 @SessionScoped
 public class ArticleView implements Serializable {
@@ -31,6 +34,9 @@ public class ArticleView implements Serializable {
         show();
     }
 
+    /**
+     * Copies file's binary data into response's OutputStream
+     * */
     private void show() {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         ExternalContext externalContext = facesContext.getExternalContext();

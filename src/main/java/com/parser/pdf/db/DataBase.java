@@ -5,6 +5,9 @@ import java.io.InputStream;
 import java.sql.*;
 import java.util.Properties;
 
+/**
+ * Helper class for connecting to DB
+ * */
 public class DataBase {
     private static final String RESOURCE_NAME = "sqlscripts/db-connection.properties";
     private static final String DB_DRIVER_PROM_NAME = "driver";
@@ -12,6 +15,9 @@ public class DataBase {
     private static final String DB_USER_PROP_NAME = "user";
     private static final String DB_PASSWORD_PROP_NAME = "password";
 
+    /**
+     * Returns db connection object
+     * */
     public Connection getConnection() {
         try {
             Properties properties = getProperties();
@@ -26,6 +32,9 @@ public class DataBase {
         }
     }
 
+    /**
+     * Loads db properties from file
+     * */
     private Properties getProperties() throws IOException {
         Properties dbProperties = new Properties();
         ClassLoader loader = Thread.currentThread().getContextClassLoader();

@@ -13,7 +13,6 @@ public class ArticleDao {
 
     private static String INSERT_ARTICLE_QUERY = "INSERT INTO articles (`name`, `content`, `binaryData`) VALUES (?, ?, ?);";
     private static String GET_ARTICLE_BY_ID = "SELECT * FROM articles WHERE id = ?;";
-    private static String DELETE_ARTICLE_BY_ID = "DELETE FROM articles WHERE id = ?;";
 
     public void save(Article article) {
         DataBase db = new DataBase();
@@ -64,21 +63,9 @@ public class ArticleDao {
         return null;
     }
 
-    public void deleteArticleById(Integer id) {
-        DataBase db = new DataBase();
-        Connection connection = db.getConnection();
-        PreparedStatement preparedStatement = null;
-        try {
-            preparedStatement = connection.prepareStatement(DELETE_ARTICLE_BY_ID);
-            preparedStatement.setInt(1, id);
-            preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } finally {
-            finishDbJob(connection, preparedStatement, null);
-        }
-    }
-
+    /**
+     * Closes all opened db interaction objects
+     * */
     private void finishDbJob(Connection connection, PreparedStatement preparedStatement, ResultSet queryResult) {
         try {
             if (queryResult != null) {
