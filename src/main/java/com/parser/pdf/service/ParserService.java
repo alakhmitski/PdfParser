@@ -35,7 +35,7 @@ public class ParserService implements Serializable {
             if (PDF_FILE_EXTENTION.equalsIgnoreCase(fileExtension)) {
                 InputStream inputstream = uploadFile.getInputstream();
                 String text = parseFile(inputstream);
-                String content = FileParserUtils.getContent(text.toString(), START_POINT_STR, END_POINT_STR);
+                String content = FileParserUtils.getContent(text, START_POINT_STR, END_POINT_STR);
                 String formattedContent = FileParserUtils.formattingContent(content);
                 String fileName = FileParserUtils.getFileName(uploadFile.getFileName());
                 Article article = new Article(fileName, formattedContent, uploadFile.getContents());

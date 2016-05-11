@@ -38,7 +38,7 @@ public class FileParserUtils {
         Path path = Paths.get(file);
         String fileName = path.getFileName().toString();
         fileName = FilenameUtils.removeExtension(fileName);
-        return fileName.toString();
+        return fileName;
     }
 
     /**
